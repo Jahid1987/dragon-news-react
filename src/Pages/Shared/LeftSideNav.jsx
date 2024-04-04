@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import CategoryCard from "./CategoryCard";
 
 const LeftSideNav = () => {
   const [categories, setCategories] = useState([]);
+
   useEffect(() => {
     fetch("../categories.json")
       .then((res) => res.json())
@@ -16,8 +18,8 @@ const LeftSideNav = () => {
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? "btn w-full mb-2 grid justify-start"
-              : "btn btn-ghost w-full mb-2 grid justify-start"
+              ? "btn w-full mb-2 grid text-base  lg:text-lg justify-start"
+              : "btn text-gray-500 text-base  lg:text-lg btn-ghost w-full mb-2 grid justify-start"
           }
           key={category.id}
           to={`/category/${category.id}`}
@@ -25,6 +27,11 @@ const LeftSideNav = () => {
           {category.name}
         </NavLink>
       ))}
+      <div>
+        <CategoryCard></CategoryCard>
+        <CategoryCard></CategoryCard>
+        <CategoryCard></CategoryCard>
+      </div>
     </div>
   );
 };

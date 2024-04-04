@@ -38,8 +38,8 @@ const RightSideNav = () => {
       </a>
 
       {/* Q-zone section  */}
-      <div className="bg-base-200 mt-5 space-y-4">
-        <h1 className="text-3xl font-bold mb-4 p-4">Q-Zone</h1>
+      <div className="bg-base-200 mt-5 space-y-4 py-5 px-2">
+        <h1 className="text-3xl font-bold mb-4 px-3">Q-Zone</h1>
         <img src={qzone1} alt="swimming" />
         <img src={qzone2} alt="class" />
         <img src={qzone3} alt="play ground" />
