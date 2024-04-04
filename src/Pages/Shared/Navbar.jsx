@@ -1,7 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import defaultUserImage from "../../assets/user.png";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Navbar = () => {
+  const { user, signOutUser } = useContext(AuthContext);
   const nvaLinks = (
     <>
       <li>
@@ -15,6 +18,9 @@ const Navbar = () => {
       </li>
     </>
   );
+  async function handleSignOut() {
+    await signOutUser();
+  }
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -47,18 +53,31 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{nvaLinks}</ul>
       </div>
       <div className="navbar-end">
+        <p className="mr-2 text-gray-500">
+          {user?.displayName && user.displayName}
+        </p>
+
         <div
           tabIndex={0}
           role="button"
           className="btn btn-ghost btn-circle avatar  mr-2"
         >
           <div className="w-10 rounded-full">
-            <img src={defaultUserImage} alt="Tailwind CSS Navbar component" />
+            <img
+              src={user?.photoURL ? user.photoURL : defaultUserImage}
+              alt="Tailwind CSS Navbar component"
+            />
           </div>
         </div>
-        <Link to={"/login"} className="btn btn-neutral">
-          Login
-        </Link>
+        {user ? (
+          <button onClick={handleSignOut} className="btn btn-neutral btn-sm">
+            Log Out
+          </button>
+        ) : (
+          <Link to={"/login"} className="btn btn-neutral btn-sm">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

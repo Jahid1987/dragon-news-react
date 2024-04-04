@@ -2,17 +2,39 @@ import { FaFacebook, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
 import qzone1 from "../../assets/qZone1.png";
 import qzone2 from "../../assets/qZone2.png";
 import qzone3 from "../../assets/qZone3.png";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const RightSideNav = () => {
+  const { signUpWithGithub, singUpWithFacebook } = useContext(AuthContext);
+
+  async function handleFacebookSignUp() {
+    try {
+      await singUpWithFacebook();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async function handleGithubSignUp() {
+    try {
+      await signUpWithGithub();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   return (
     <div>
       {/* login section  */}
       <div className=" space-y-4 mb-6">
         <h1 className="text-3xl font-bold">Login</h1>
-        <button className="btn btn-outline btn-primary w-full">
+        <button
+          onClick={handleFacebookSignUp}
+          className="btn btn-outline btn-primary w-full"
+        >
           <FaFacebook className="text-2xl"></FaFacebook>Login with Facebook
         </button>
-        <button className="btn btn-outline w-full">
+        <button onClick={handleGithubSignUp} className="btn btn-outline w-full">
           <FaGithub className="text-2xl"></FaGithub>Login with Github
         </button>
       </div>
@@ -43,6 +65,20 @@ const RightSideNav = () => {
         <img src={qzone1} alt="swimming" />
         <img src={qzone2} alt="class" />
         <img src={qzone3} alt="play ground" />
+      </div>
+
+      {/* learn more section  */}
+      <div className="bg-black p-7 mt-4 space-y-4 text-center">
+        <h3 className="text-3xl font-bold text-white">
+          Create an Amazing Newspaper
+        </h3>
+        <p className=" text-gray-300">
+          Discover thousands of options, easy to customize layouts, one-click to
+          import demo and much more.
+        </p>
+        <button className="btn btn-error rounded-none text-white">
+          Learn More
+        </button>
       </div>
     </div>
   );
