@@ -13,6 +13,12 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        children: [
+          {
+            path: "/category/:id",
+            element: <h3>This is category </h3>,
+          },
+        ],
       },
       {
         path: "/about",
