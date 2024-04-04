@@ -4,20 +4,22 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const { registerUser } = useContext(AuthContext);
+  const { registerUser, setDetails } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  function handleRegister(e) {
+  async function handleRegister(e) {
     e.preventDefault();
+    const name = e.target.name.value;
+    const photoUrl = e.target.url.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    registerUser(email, password)
-      .then((result) => {
-        if (result.user) {
-          navigate("/");
-        }
-      })
-      .catch((error) => console.log(error.message));
+    try {
+      await registerUser(email, password);
+      await setDetails(name, photoUrl);
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   return (
@@ -29,6 +31,30 @@ const Register = () => {
         </h3>
 
         <form onSubmit={handleRegister} className="card-body">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Your Name</span>
+            </label>
+            <input
+              name="name"
+              type="text"
+              placeholder="Enter your name"
+              className="input input-bordered"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Photo URL</span>
+            </label>
+            <input
+              name="url"
+              type="text"
+              placeholder="Enter your Photo URL"
+              className="input input-bordered"
+              required
+            />
+          </div>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email address</span>
@@ -52,20 +78,15 @@ const Register = () => {
               className="input input-bordered"
               required
             />
-            <label className="label">
-              <a href="#" className="label-text-alt link link-hover">
-                Forgot password?
-              </a>
-            </label>
           </div>
           <div className="form-control mt-6">
             <button className="btn btn-neutral rounded-none">Register</button>
           </div>
 
-          <p className="font-semibold">
-            Dont’t Have An Account ?{" "}
-            <Link to="/register" className="text-red-500">
-              Register
+          <p className="font-semibold mt-3">
+            Have An Account ?{" "}
+            <Link to="/login" className="text-red-500">
+              Login
             </Link>
           </p>
         </form>
