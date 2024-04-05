@@ -1,3 +1,4 @@
+import NewsCard from "../../Components/NewsCard";
 import Header from "../Shared/Header";
 import LeftSideNav from "../Shared/LeftSideNav";
 import Navbar from "../Shared/Navbar";
@@ -7,12 +8,13 @@ import { useLoaderData } from "react-router-dom";
 
 export async function loader() {
   const res = await fetch("../news.json");
-  const data = await res.json();
-  return { data };
+  const docs = await res.json();
+  return { docs };
 }
 
 const Home = () => {
-  const { data: news } = useLoaderData();
+  const { docs: newses } = useLoaderData();
+
   return (
     <div>
       <Header></Header>
@@ -23,7 +25,9 @@ const Home = () => {
           <LeftSideNav></LeftSideNav>
         </div>
         <div className="md:col-span-2">
-          <h3 className="text-5xl font-bold">Coming soon ...{news.length}</h3>
+          {newses.map((news) => (
+            <NewsCard key={news._id} news={news}></NewsCard>
+          ))}
         </div>
         <div>
           <RightSideNav></RightSideNav>

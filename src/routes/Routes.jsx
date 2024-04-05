@@ -7,6 +7,9 @@ import Career from "../Pages/Career/Career";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
 import PrivateRoutes from "./PrivateRoutes";
+import NewsDetails, {
+  loader as newsDetailsLoader,
+} from "../Pages/Details/NewsDetails";
 
 const routes = createBrowserRouter([
   {
@@ -23,6 +26,15 @@ const routes = createBrowserRouter([
             element: <h3>This is category </h3>,
           },
         ],
+      },
+      {
+        path: "/news-details/:id",
+        loader: newsDetailsLoader,
+        element: (
+          <PrivateRoutes>
+            <NewsDetails></NewsDetails>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/login",
