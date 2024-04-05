@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layouts/Root";
 
-import Home from "../Pages/Home/Home";
+import Home, { loader as newsLoader } from "../Pages/Home/Home";
 import About from "../Pages/About/About";
 import Career from "../Pages/Career/Career";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
+import PrivateRoutes from "./PrivateRoutes";
 
 const routes = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "/",
+        loader: newsLoader,
         element: <Home />,
         children: [
           {
@@ -32,11 +34,19 @@ const routes = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About></About>,
+        element: (
+          <PrivateRoutes>
+            <About></About>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/career",
-        element: <Career></Career>,
+        element: (
+          <PrivateRoutes>
+            <Career></Career>
+          </PrivateRoutes>
+        ),
       },
     ],
   },

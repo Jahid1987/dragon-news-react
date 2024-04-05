@@ -1,20 +1,22 @@
 import { useContext } from "react";
 import Navbar from "../Shared/Navbar";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Login = () => {
   const { logInUser } = useContext(AuthContext);
+  const location = useLocation();
   const navigate = useNavigate();
 
   function handleLogin(e) {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+
     logInUser(email, password)
       .then((result) => {
         if (result.user) {
-          navigate("/");
+          navigate(location?.state ? location.state : "/");
         }
       })
       .catch((error) => console.log(error.message));

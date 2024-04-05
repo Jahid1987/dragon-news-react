@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react";
 import Header from "../Shared/Header";
 import LeftSideNav from "../Shared/LeftSideNav";
 import Navbar from "../Shared/Navbar";
 import RightSideNav from "../Shared/RightSideNav";
 import BreakingNews from "./BreakingNews";
+import { useLoaderData } from "react-router-dom";
+
+export async function loader() {
+  const res = await fetch("../news.json");
+  const data = await res.json();
+  return { data };
+}
 
 const Home = () => {
-  const [news, setNews] = useState([]);
-  useEffect(() => {
-    fetch("../news.json")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setNews([...data]);
-      });
-  }, []);
+  const { data: news } = useLoaderData();
   return (
     <div>
       <Header></Header>
