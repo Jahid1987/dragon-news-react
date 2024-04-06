@@ -1,24 +1,23 @@
-import { useContext } from "react";
 import Navbar from "../Shared/Navbar";
-import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../customHooks/useAuth";
 
 const Register = () => {
-  const { registerUser, setDetails } = useContext(AuthContext);
+  const { registerUser, setDetails } = useAuth();
   const navigate = useNavigate();
-
   async function handleRegister(e) {
     e.preventDefault();
     const name = e.target.name.value;
     const photoUrl = e.target.url.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
+
     try {
       await registerUser(email, password);
       await setDetails(name, photoUrl);
       navigate("/");
     } catch (error) {
-      console.log(error.message);
+      console.log({ ...error });
     }
   }
 

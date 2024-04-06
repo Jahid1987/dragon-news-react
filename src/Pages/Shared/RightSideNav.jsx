@@ -2,11 +2,10 @@ import { FaFacebook, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
 import qzone1 from "../../assets/qZone1.png";
 import qzone2 from "../../assets/qZone2.png";
 import qzone3 from "../../assets/qZone3.png";
-import { useContext } from "react";
-import { AuthContext } from "../../Providers/AuthProvider";
+import useAuth from "../../customHooks/useAuth";
 
 const RightSideNav = () => {
-  const { signUpWithGithub, singUpWithFacebook } = useContext(AuthContext);
+  const { signUpWithGithub, singUpWithFacebook } = useAuth;
 
   async function handleFacebookSignUp() {
     try {

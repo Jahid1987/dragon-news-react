@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import Navbar from "../Shared/Navbar";
-import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../../customHooks/useAuth";
 
 const Login = () => {
-  const { logInUser } = useContext(AuthContext);
+  const { logInUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
